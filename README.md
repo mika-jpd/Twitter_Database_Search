@@ -1,2 +1,2 @@
 # Twitter_Database_Search
-Final Project for my Introduction to Computer Science class
+Final Project working with Hash Tables to organize a Twitter-like database
