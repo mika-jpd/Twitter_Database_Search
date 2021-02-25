@@ -1,5 +1,3 @@
-package FinalProject_Template;
-
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -22,12 +20,11 @@ public class Twitter {
 	
     
     /**
-     * Add Tweet t to this Twitter
+     * Adds Tweet t to this Twitter
      * O(1).
      * Add the tweet to both the MyHashTables
      */
 	public void addTweet(Tweet t) {
-        //System.out.println("Adding : " + t);
         if (authorHashTable.get(t.getAuthor())== null) {
             authorHashTable.put(t.getAuthor(), t);
         }
@@ -49,7 +46,7 @@ public class Twitter {
 	
 
     /**
-     * Search this Twitter for the latest Tweet of a given author.
+     * Searches this Twitter for the latest Tweet of a given author.
      * If there are no tweets from the given author, then the 
      * method returns null. 
      * O(1)  
@@ -60,7 +57,7 @@ public class Twitter {
 
 
     /**
-     * Search this Twitter for Tweets by `date' and return an 
+     * Searches this Twitter for Tweets by `date' and return an 
      * ArrayList of all such Tweets. If there are no tweets on 
      * the given date, then the method returns null.
      * O(1)
@@ -72,10 +69,10 @@ public class Twitter {
     
 	/**
 	 * Returns an ArrayList of words (that are not stop words!) that
-	 * appear in the tweets. The words should be ordered from most 
+	 * appear in the tweets. The words are ordered from most 
 	 * frequent to least frequent by counting in how many tweet messages
 	 * the words appear. Note that if a word appears more than once
-	 * in the same tweet, it should be counted only once. 
+	 * in the same tweet, it it is only counted once. 
 	 */
     public ArrayList<String> trendingTopics() {
         MyHashTable<String, Integer> table = new MyHashTable<String, Integer>(dateHashTable.size()*350);
@@ -113,9 +110,9 @@ public class Twitter {
     
     
     /**
-     * An helper method you can use to obtain an ArrayList of words from a 
+     * A helper method used to obtain an ArrayList of words from a 
      * String, separating them based on apostrophes and space characters. 
-     * All character that are not letters from the English alphabet are ignored. 
+     * All character not letters from the English alphabet are ignored. 
      */
     private static ArrayList<String> getWords(String msg) {
     	msg = msg.replace('\'', ' ');
@@ -145,3 +142,4 @@ public class Twitter {
     
 
 }
+
