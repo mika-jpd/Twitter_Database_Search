@@ -1,5 +1,8 @@
 # Twitter Database
-This is a Twitter database using Hash Tables to organize a Twitter messages for easy extraction of tweet authors, tweet content, and Twitter trending topics.
+## Table of Contens
+* [Description](#description)
+* [Code Explanation](#code-explanation)
+* [Run code](#run-code)
 
 ## Description
 
@@ -127,6 +130,5 @@ public void rehash() {
         this.buckets = temp.buckets;
     }
 ```
-##Running Instructions
-
+## Run code
 Just download the files and place them all in a single folder!
