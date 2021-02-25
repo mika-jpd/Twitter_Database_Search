@@ -132,3 +132,6 @@ public void rehash() {
 ```
 ## Run code
 Just download the files and place them all in a single folder!
+The Dataset class contains a couple of examples of tweets whose structure is compatible with my code. 
+
+Enjoy!
