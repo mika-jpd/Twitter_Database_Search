@@ -6,16 +6,11 @@ import java.util.LinkedList;
 
 
 public class MyHashTable<K,V> implements Iterable<HashPair<K,V>>{
-    // num of entries to the table
     private int numEntries;
-    // num of buckets 
     private int numBuckets;
-    // load factor needed to check for rehashing 
     private static final double MAX_LOAD_FACTOR = 0.75;
-    // ArrayList of buckets. Each bucket is a LinkedList of HashPair
     private ArrayList<LinkedList<HashPair<K,V>>> buckets; 
-    
-    // constructor
+
     public MyHashTable(int initialCapacity) {
         buckets = new ArrayList<LinkedList<HashPair<K,V> > >(initialCapacity);
 
@@ -41,7 +36,7 @@ public class MyHashTable<K,V> implements Iterable<HashPair<K,V>>{
     }
     
     /**
-     * Returns the buckets variable. Useful for testing  purposes.
+     * Returns the buckets variable
      */
     public ArrayList<LinkedList< HashPair<K,V> > > getBuckets(){
         return this.buckets;
@@ -60,7 +55,7 @@ public class MyHashTable<K,V> implements Iterable<HashPair<K,V>>{
     }
     
     /**
-     * Given a key, return the bucket position for the key. 
+     * Given a key, returns the bucket position for the key. 
      */
     public int hashFunction(K key) {
         int hashValue = Math.abs(key.hashCode())%this.numBuckets;
@@ -73,12 +68,10 @@ public class MyHashTable<K,V> implements Iterable<HashPair<K,V>>{
      */
     public V put(K key, V value) {
 
-        //System.out.println("Adding : " + key);
         HashPair<K,V> add = new HashPair<K,V>(key, value);
         double y = ((double)numEntries + 1)/(double)numBuckets;
-        //System.out.println(y);
+
         if (y > MAX_LOAD_FACTOR){
-            //System.out.println("Hit rehash");
             rehash();
         }
         if (add.getValue() == null) {
@@ -91,20 +84,16 @@ public class MyHashTable<K,V> implements Iterable<HashPair<K,V>>{
         // If there is nothing at an index, then LinkedList.add
         if ((buckets.get(x)).size() == 0){
             buckets.get(x).add(add);
-            //System.out.println("Add empty linkedList");
             numEntries++;
             return add.getValue();
         }
         //
         /*
-            If the LinkedList is not empty: set temp to the head, use enhanced for loop
-            to go thrugh the LinkedList and compare. If success, replace and return old
+            If the LinkedList is not empty: sets temp to the head, uses enhanced for loop
+            to go thrugh the LinkedList and compares. If successfull, replaces and returns old
             value.
         */
         else {
-            
-           
-            //HashPair<K,V> temp = buckets.get(x).getFirst();
             
             for (HashPair<K,V> pair : buckets.get(x)) {
                 if (pair.getKey().equals(key)) {
@@ -122,7 +111,7 @@ public class MyHashTable<K,V> implements Iterable<HashPair<K,V>>{
     
     
     /**
-     * Get the value corresponding to key. Expected average runtime O(1)
+     * Gets the value corresponding to key. Expected average runtime O(1)
      */
     
     public V get(K key) {
@@ -133,7 +122,6 @@ public class MyHashTable<K,V> implements Iterable<HashPair<K,V>>{
         else {
             for(HashPair<K,V> pair : buckets.get(hashCode)) {
                 if (pair.getKey().equals(key)){
-                    //System.out.println("Get returning : " + pair.getValue() + " because " + pair.getKey() + " = " + key + " which is " + pair.getKey().equals(key));
                     return pair.getValue();
                 }
                 
@@ -144,9 +132,9 @@ public class MyHashTable<K,V> implements Iterable<HashPair<K,V>>{
     }
     
     /**
-     * Remove the HashPair corresponding to key . Expected average runtime O(1)
+     * Removes the HashPair corresponding to key . Expected average runtime O(1)
      * Returns the value of the removed key
-     * If no key, return null 
+     * If no key, returns null 
      */
     public V remove(K key) {
         int hashCode = hashFunction(key);
@@ -170,17 +158,14 @@ public class MyHashTable<K,V> implements Iterable<HashPair<K,V>>{
     
     
     /** 
-     * Method to double the size of the hashtable if load factor increases
+     * Method to double the size of the hashtable if the load factor increases
      * beyond MAX_LOAD_FACTOR.
-     * Made public for ease of testing.
      * Expected average runtime is O(m), where m is the number of buckets
      */
 
     public void rehash() {
         numBuckets = numBuckets*2;
         MyHashTable<K,V> temp = new MyHashTable<>(numBuckets);
-        //buckets = new ArrayList<LinkedList<HashPair<K,V> > >(numBuckets);
-
         for (LinkedList<HashPair<K,V> > list : this.buckets) for(HashPair<K,V> pair : list) temp.put(pair.getKey(), pair.getValue());
 
         this.buckets = temp.buckets;
@@ -188,7 +173,7 @@ public class MyHashTable<K,V> implements Iterable<HashPair<K,V>>{
     
     
     /**
-     * Return a list of all the keys present in this hashtable.
+     * Returns a list of all the keys present in this hashtable.
      * Expected average runtime is O(m), where m is the number of buckets
      */
     
@@ -260,15 +245,9 @@ public class MyHashTable<K,V> implements Iterable<HashPair<K,V>>{
         ArrayList<HashPair<K,V> > toSort = new ArrayList<HashPair<K,V>>(results.numEntries);
         ArrayList<K> sorted = new ArrayList<K>(results.numEntries);
         for(LinkedList<HashPair<K,V> > list : results.getBuckets()) for(HashPair<K,V> pair : list) toSort.add(pair);
-        
-        //System.out.println("This is right index : " + (toSort.size()-1));
-        //System.out.println("Before quickSort");
-        //for (HashPair<K,V> pair : toSort) System.out.print(pair.getKey() + " , ");
-        //System.out.println("\n------------");
         quicksort(toSort, 0, toSort.size() - 1);
         
         for (HashPair<K,V> pair : toSort) sorted.add(pair.getKey());
-        //System.out.println("\nAfter : ");
         return sorted;
     }
 
@@ -285,25 +264,18 @@ public class MyHashTable<K,V> implements Iterable<HashPair<K,V>>{
     private static <K, V extends Comparable <V> > int placeAndDivide (ArrayList<HashPair<K,V> > toSort, int leftIndex, int rightIndex) {
         V pivot = toSort.get(rightIndex).getValue();
         int wall = leftIndex - 1;
-        //System.out.println("Pivot : " + pivot + " Wall : "+ wall + " Right Index : " + rightIndex);
-        //System.out.println(toSort);
 
         for (int i = leftIndex; i < rightIndex; i++) {
             if (toSort.get(i).getValue().compareTo(pivot) > 0) {
-                //System.out.println("Increase wall for below");
                 wall++;
                 HashPair<K,V> temp = toSort.get(i);
                 toSort.set(i, toSort.get(wall));
                 toSort.set(wall, temp);
             }
-            //System.out.println("\n\n\n"+ i + " Wall : " + wall);
-            //System.out.println(toSort);
         }
         HashPair<K,V> temp = toSort.get(rightIndex);
         toSort.set(rightIndex, toSort.get(wall+1));
         toSort.set(wall +1, temp);
-        //System.out.println("\n\n\n"+toSort);
-        //System.out.println("------------");
         return wall + 1;
         
     }
