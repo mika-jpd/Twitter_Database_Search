@@ -77,5 +77,46 @@ public void addTweet(Tweet t) {
         return trends;	
     }
 ```
+MyHashTable:
+* put(K key, V value)
+```
+public V put(K key, V value) {
 
+        HashPair<K,V> add = new HashPair<K,V>(key, value);
+        double y = ((double)numEntries + 1)/(double)numBuckets;
+
+        if (y > MAX_LOAD_FACTOR){
+
+            rehash();
+        }
+        if (add.getValue() == null) {
+            System.out.println(key + " : null value !");
+            return null;
+        }
+
+        int x = hashFunction(key);
+
+        if ((buckets.get(x)).size() == 0){
+            buckets.get(x).add(add);
+
+            numEntries++;
+            return add.getValue();
+        }
+        else {
+            
+            
+            for (HashPair<K,V> pair : buckets.get(x)) {
+                if (pair.getKey().equals(key)) {
+                    V val = pair.getValue();
+                    pair.setValue(value);
+                    return val;
+                }
+            }
+        }
+        buckets.get(x).add(add);
+        numEntries++;
+
+    	return add.getValue();
+    }
+```
 ##Running Instructions
