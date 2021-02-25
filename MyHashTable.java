@@ -1,3 +1,5 @@
+package FinalProject_Template;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -274,6 +276,7 @@ public class MyHashTable<K,V> implements Iterable<HashPair<K,V>>{
         HashPair<K,V> temp = toSort.get(rightIndex);
         toSort.set(rightIndex, toSort.get(wall+1));
         toSort.set(wall +1, temp);
+
         return wall + 1;
         
     }
