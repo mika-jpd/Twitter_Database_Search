@@ -79,23 +79,23 @@ public void addTweet(Tweet t) {
 ```
 MyHashTable:
 * put(K key, V value)
+*    * takes a key and a value as input and adds the corresponding HashPair to this HashTable
+*    * if a key already exists but has another value in the table, we reset the value and return the old value
+*    * the load factor = 0.75
+*    * if the hashtable must be rehashed, the pair (k, v) is still added but to the newly rehashed table
 ```
 public V put(K key, V value) {
 
         HashPair<K,V> add = new HashPair<K,V>(key, value);
         double y = ((double)numEntries + 1)/(double)numBuckets;
-
         if (y > MAX_LOAD_FACTOR){
-
             rehash();
         }
         if (add.getValue() == null) {
             System.out.println(key + " : null value !");
             return null;
         }
-
         int x = hashFunction(key);
-
         if ((buckets.get(x)).size() == 0){
             buckets.get(x).add(add);
 
@@ -103,8 +103,6 @@ public V put(K key, V value) {
             return add.getValue();
         }
         else {
-            
-            
             for (HashPair<K,V> pair : buckets.get(x)) {
                 if (pair.getKey().equals(key)) {
                     V val = pair.getValue();
@@ -119,4 +117,16 @@ public V put(K key, V value) {
     	return add.getValue();
     }
 ```
+* rehash()
+*    * doubles the size of the table to decrease collision rates
+```
+public void rehash() {
+        numBuckets = numBuckets*2;
+        MyHashTable<K,V> temp = new MyHashTable<>(numBuckets);
+        for (LinkedList<HashPair<K,V> > list : this.buckets) for(HashPair<K,V> pair : list) temp.put(pair.getKey(), pair.getValue());
+        this.buckets = temp.buckets;
+    }
+```
 ##Running Instructions
+
+Just download the files and place them all in a single folder!
