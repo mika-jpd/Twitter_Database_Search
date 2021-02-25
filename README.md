@@ -1,7 +1,7 @@
 # Twitter Database
 This is a Twitter database using Hash Tables to organize a Twitter messages for easy extraction of tweet authors, tweet content, and Twitter trending topics.
 
-##Description
+## Description
 
 The point of this project was to organize Twitter tweet so that various information can be easily accessible.
 I used a hashtables in order to efficiently store and access tweets written by an author and get tweets written at a certain date. One hashtable takes in as key the author and as value the tweet written by the author. The other takes in as key the date of a tweet and value an arraylist of tweets posted on that day. The conditions of adding to the Hashtable are the following:
@@ -11,7 +11,7 @@ I used a hashtables in order to efficiently store and access tweets written by a
 
 The other big part of the project is the trendingTopics() method whose aim is to identify the most used words, that are not stopping words, by counting the number of appearances a given word in all the tweets stored in the hash table. 
 
-##Code Explanation 
+## Code Explanation 
 
 Twitter:
 * addTweet(Tweet t): adds a tweet to both hashtables
@@ -39,6 +39,10 @@ public void addTweet(Tweet t) {
 	}
 ```
 * trendingTopics():
+*   * returns an ArrayList of words (that are not stop words!) that appear in the tweets.
+*   * the words are ordered from most frequent to least frequent by counting in how many tweet messages the words appear
+*   * if a word appears more than once in the same tweet, it will be counted only once
+*   * I have dateHashTable.size()*350 because tweets are 350 characters long
 ```
     public ArrayList<String> trendingTopics() {
         MyHashTable<String, Integer> table = new MyHashTable<String, Integer>(dateHashTable.size()*350);
