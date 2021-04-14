@@ -6,8 +6,7 @@
 
 ## Description
 
-The point of this project was to organize Twitter tweet so that various information can be easily accessible.
-I used a hashtables in order to efficiently store and access tweets written by an author and get tweets written at a certain date. One hashtable takes in as key the author and as value the tweet written by the author. The other takes in as key the date of a tweet and value an arraylist of tweets posted on that day. The conditions of adding to the Hashtable are the following:
+The point of this project was to organize Twitter tweet using hashtables in order to efficiently store and access tweets written by an author and get tweets written at a certain date. One hashtable takes in as key the author and as value the tweet written by the author. The other takes in as key the date of a tweet and value an arraylist of tweets posted on that day. The conditions of adding to the Hashtable are the following:
 * If a HashPair with the key already exists in the hash table, then the add function overwrite the old value associated with the key with the new one
 * If in the hash table there was no previous value associated to the given key, then the method overwrites it with the new value and returns the old one
 * If there was no value associated to the given key the method returns null
